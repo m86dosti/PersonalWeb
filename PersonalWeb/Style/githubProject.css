@@ -1,0 +1,68 @@
+.project{
+  color: white;
+}
+.github-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.github-card {
+  color: rgb(0, 0, 0);
+  background-color: aliceblue;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  gap: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 35px;
+}
+.github-card h3 {
+  margin: 0;
+  font-size: 20px;
+  color: rgb(0, 0, 0);
+}
+
+.github-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.github-card .repo-stats {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.github-card .repo-stats span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: black;
+}
+
+.github-card .repo-stats i {
+  color: rgb(45, 123, 226);
+}
+
+.github-card a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: var(--ocean-depth);
+  color:rgb(0, 0, 0);
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.github-card a:hover {
+  background-color: var(--midnight-sky);
+}

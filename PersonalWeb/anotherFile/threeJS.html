@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>سر ربات سه‌بعدی طبیعی</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      // ایجاد سر ربات با جزئیات بیشتر و قشنگ‌تر
+      const headGeometry = new THREE.SphereGeometry(0.6, 32, 32);
+      const headMaterial = new THREE.MeshStandardMaterial({
+        color: 0xaaaaaa,
+        metalness: 0.5,
+        roughness: 0.1,
+      });
+      const head = new THREE.Mesh(headGeometry, headMaterial);
+      scene.add(head);
+
+      // ایجاد چشم‌ها با جزئیات بیشتر
+      const eyeOuterGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+      const eyeInnerGeometry = new THREE.SphereGeometry(0.06, 32, 32);
+      const eyeOuterMaterial = new THREE.MeshStandardMaterial({
+        color: 0x000000,
+        metalness: 0.5,
+        roughness: 0.3,
+      });
+      const eyeInnerMaterial = new THREE.MeshStandardMaterial({
+        color: 0x00ff00,
+        emissive: 0x00ff00,
+        emissiveIntensity: 0.7,
+      });
+      const leftEyeOuter = new THREE.Mesh(eyeOuterGeometry, eyeOuterMaterial);
+      const rightEyeOuter = new THREE.Mesh(eyeOuterGeometry, eyeOuterMaterial);
+      const leftEyeInner = new THREE.Mesh(eyeInnerGeometry, eyeInnerMaterial);
+      const rightEyeInner = new THREE.Mesh(eyeInnerGeometry, eyeInnerMaterial);
+      leftEyeOuter.position.set(-0.2, 0.2, 0.5);
+      rightEyeOuter.position.set(0.2, 0.2, 0.5);
+      leftEyeInner.position.set(-0.2, 0.2, 0.57);
+      rightEyeInner.position.set(0.2, 0.2, 0.57);
+      head.add(leftEyeOuter);
+      head.add(rightEyeOuter);
+      head.add(leftEyeInner);
+      head.add(rightEyeInner);
+
+      // ایجاد دهان با جزئیات بیشتر و قشنگ‌تر
+      const mouthGeometry = new THREE.TorusGeometry(0.15, 0.05, 16, 100);
+      const mouthMaterial = new THREE.MeshStandardMaterial({
+        color: 0xff0000,
+        metalness: 0.3,
+        roughness: 0.5,
+      });
+      const mouth = new THREE.Mesh(mouthGeometry, mouthMaterial);
+      mouth.position.set(0, -0.2, 0.5);
+      mouth.rotation.x = Math.PI / 2;
+      head.add(mouth);
+
+      // ایجاد آنتن
+      const antennaGeometry = new THREE.CylinderGeometry(0.03, 0.03, 0.8, 32);
+      const antennaMaterial = new THREE.MeshStandardMaterial({
+        color: 0xaaaaaa,
+        metalness: 0.8,
+        roughness: 0.2,
+      });
+      const antenna = new THREE.Mesh(antennaGeometry, antennaMaterial);
+      antenna.position.set(0, 0.7, 0);
+      head.add(antenna);
+
+      // ایجاد دیسک‌های گوش
+      const earGeometry = new THREE.CylinderGeometry(0.15, 0.15, 0.1, 32);
+      const earMaterial = new THREE.MeshStandardMaterial({
+        color: 0x888888,
+        metalness: 0.6,
+        roughness: 0.4,
+      });
+      const leftEar = new THREE.Mesh(earGeometry, earMaterial);
+      const rightEar = new THREE.Mesh(earGeometry, earMaterial);
+      leftEar.rotation.z = Math.PI / 2;
+      rightEar.rotation.z = Math.PI / 2;
+      leftEar.position.set(-0.6, 0.2, 0);
+      rightEar.position.set(0.6, 0.2, 0);
+      head.add(leftEar);
+      head.add(rightEar);
+
+      // نورپردازی
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(5, 5, 5);
+      scene.add(ambientLight);
+      scene.add(directionalLight);
+
+      camera.position.z = 5;
+
+      // تابع حرکت سر ربات به دنبال ماوس
+      let targetX = 0;
+      let targetY = 0;
+
+      document.addEventListener("mousemove", (event) => {
+        const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        targetX = (mouseX * Math.PI) / 8;
+        targetY = (mouseY * -Math.PI) / 8;
+      });
+
+      function updateHead() {
+        head.rotation.y += (targetX - head.rotation.y) * 0.05;
+        head.rotation.x += (targetY - head.rotation.x) * 0.05;
+      }
+
+      function render() {
+        requestAnimationFrame(render);
+        updateHead();
+        renderer.render(scene, camera);
+      }
+
+      // تنظیمات برای تغییر سایز
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      render();
+    </script>
+  </body>
+</html>

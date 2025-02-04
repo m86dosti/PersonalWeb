@@ -1,0 +1,93 @@
+@media only screen and (max-width: 768px) {
+  body {
+    background: linear-gradient(
+      180deg,
+      var(--pitch-black),
+      var(--midnight-sky)
+    );
+  }
+
+  header nav {
+    padding: 10px;
+  }
+
+  * {
+    text-align: right;
+  }
+
+  section {
+    flex-direction: column; 
+    margin: 10px;
+    padding: 10px;
+  }
+
+  section .information {
+    width: 100%; 
+  }
+
+  .first-place,
+  .secondsec {
+    flex-direction: column; 
+    padding: 10px;
+    height: auto; 
+  }
+
+  .secondsec .sec-par {
+    width: 100%; 
+  }
+
+  .btnsec {
+    flex-direction: column; 
+    align-items: center;
+  }
+
+  .sec-par a {
+    width: 100%; 
+    margin: 5px 0; 
+  }
+
+  .skils-place {
+    flex-direction: column; 
+    align-items: center;
+  }
+
+  .inverted-radius,
+  .inverted-radius2 {
+    width: 100%; 
+    height: auto; 
+    margin: 10px 0;
+  }
+
+  .pictureBot {
+    width: 100%; 
+  }
+
+  .pictureBot img {
+    width: 100%; 
+    height: auto; 
+  }
+
+  .text-container strong {
+    font-size: 1.2em; 
+  }
+
+  .skilicon i {
+    font-size: 4em; 
+  }
+
+  #myChart {
+    width: 100%; 
+    padding: 10px;
+  }
+
+  .wrt {
+    padding: 5px; 
+  }
+
+  .pno,
+  .first-place {
+    width: 100%; 
+    height: auto; 
+    padding: 10px;
+  }
+}

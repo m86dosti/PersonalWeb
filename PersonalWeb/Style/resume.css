@@ -1,0 +1,77 @@
+.resume-preview {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 1px solid var(--midnight-sky);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.507);
+    background-color: var(--light-gray);
+  }
+
+  #pdf-canvas {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .resume-preview:hover #pdf-canvas {
+    transform: scale(1.02);
+  }
+
+  .download-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(35, 45, 63, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    border-radius: 10px;
+  }
+
+  .resume-preview:hover .download-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .download-overlay p {
+    color: var(--light-gray);
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .download-button {
+    padding: 15px 25px;
+    margin: 10px;
+    background-color: var(--ocean-depth);
+    color: var(--light-gray);
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .download-button:hover {
+    background-color: var(--forest-shadow);
+    transform: scale(1.1);
+  }
+
+  .download-button i {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+  }
+
+  .download-button:hover i {
+    transform: translateY(3px);
+  }

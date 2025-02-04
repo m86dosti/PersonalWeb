@@ -1,0 +1,14 @@
+#myChart {
+  max-width: 800px;
+  margin: 20px auto;
+  background: rgba(49, 49, 49, 0.9);
+  border-radius: 5px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+}
+.skils-place {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  max-height: 400px;
+}

@@ -1,0 +1,8 @@
+header nav {
+  background-color: rgb(28, 29, 29);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.651);
+  color: white;
+}
+header nav .navbar-toggler{
+  background-color: gray;
+}

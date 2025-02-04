@@ -1,0 +1,103 @@
+<!DOCTYPE html>  
+<html lang="fa">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>کاراکتر سه‌بعدی خندان</title>  
+    <style>  
+        body { margin: 0; }  
+        canvas { display: block; }  
+    </style>  
+</head>  
+<body>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>  
+    <script>  
+        const scene = new THREE.Scene();  
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);  
+        const renderer = new THREE.WebGLRenderer({ antialias: true });  
+        renderer.setSize(window.innerWidth, window.innerHeight);  
+        document.body.appendChild(renderer.domElement);  
+
+        // ایجاد سر کاراکتر (یک کره بزرگتر به عنوان صورت)  
+        const headGeometry = new THREE.SphereGeometry(1, 32, 32);  
+        const headMaterial = new THREE.MeshStandardMaterial({ color: 0xffcc00 });  
+        const head = new THREE.Mesh(headGeometry, headMaterial);  
+        scene.add(head);  
+
+        // ایجاد چشم‌ها  
+        const eyeGeometry = new THREE.SphereGeometry(0.1, 32, 32);  
+        const eyeMaterialWhite = new THREE.MeshBasicMaterial({ color: 0xffffff });  
+        const eyeMaterialBlack = new THREE.MeshBasicMaterial({ color: 0x000000 });  
+
+        const leftEyeWhite = new THREE.Mesh(eyeGeometry, eyeMaterialWhite);  
+        const rightEyeWhite = new THREE.Mesh(eyeGeometry, eyeMaterialWhite);  
+        const leftEyeBlack = new THREE.Mesh(eyeGeometry, eyeMaterialBlack);  
+        const rightEyeBlack = new THREE.Mesh(eyeGeometry, eyeMaterialBlack);  
+
+        leftEyeWhite.position.set(-0.3, 0.3, 0.9);  
+        rightEyeWhite.position.set(0.3, 0.3, 0.9);  
+        leftEyeBlack.position.set(-0.3, 0.3, 1);  
+        rightEyeBlack.position.set(0.3, 0.3, 1);  
+
+        head.add(leftEyeWhite);  
+        head.add(rightEyeWhite);  
+        head.add(leftEyeBlack);  
+        head.add(rightEyeBlack);  
+
+        // ایجاد دهان  
+        const mouthGeometry = new THREE.BoxGeometry(0.6, 0.1, 0.01);  
+        const mouthMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });  
+        const mouth = new THREE.Mesh(mouthGeometry, mouthMaterial);  
+        mouth.position.set(0, 0, 0.8); // موقعیت دهان  
+        head.add(mouth);  
+
+        // نورپردازی  
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);  
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);  
+        directionalLight.position.set(5, 5, 5);  
+        scene.add(ambientLight);  
+        scene.add(directionalLight);  
+
+        camera.position.z = 5;  
+
+        // تابع حرکت چشم‌ها به سمت ماوس  
+        let targetX = 0;  
+        let targetY = 0;  
+
+        document.addEventListener('mousemove', (event) => {  
+            const mouseX = (event.clientX / window.innerWidth) * 2 - 1;  
+            const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;  
+
+            targetX = mouseX * 0.5;  
+            targetY = mouseY * 0.5;  
+        });  
+
+        function updateEyes() {  
+            const eyeFollowFactor = 0.1;  
+
+            leftEyeWhite.position.x += (targetX + -0.3 - leftEyeWhite.position.x) * eyeFollowFactor;  
+            leftEyeWhite.position.y += (targetY + 0.3 - leftEyeWhite.position.y) * eyeFollowFactor;  
+            rightEyeWhite.position.x += (targetX + 0.3 - rightEyeWhite.position.x) * eyeFollowFactor;  
+            rightEyeWhite.position.y += (targetY + 0.3 - rightEyeWhite.position.y) * eyeFollowFactor;  
+
+            leftEyeBlack.position.copy(leftEyeWhite.position);  
+            rightEyeBlack.position.copy(rightEyeWhite.position);  
+        }  
+
+        function render() {  
+            requestAnimationFrame(render);  
+            updateEyes();  
+            renderer.render(scene, camera);  
+        }  
+
+        // تنظیمات برای تغییر سایز  
+        window.addEventListener('resize', () => {  
+            camera.aspect = window.innerWidth / window.innerHeight;  
+            camera.updateProjectionMatrix();  
+            renderer.setSize(window.innerWidth, window.innerHeight);  
+        });  
+
+        render();  
+    </script>  
+</body>  
+</html>
